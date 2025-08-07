@@ -3,6 +3,13 @@ import express from "express";
 import WebSocket, { WebSocketServer } from "ws";
 
 const app = express();
+
+// Serve static assets if present (e.g., public/index.html, public/favicon.ico)
+app.use(express.static("public"));
+
+// Avoid favicon 404 noise if no favicon is provided
+app.get("/favicon.ico", (_req, res) => res.status(204).end());
+
 app.get("/", (_req, res) => res.send("ok"));
 
 const PORT = Number(process.env.PORT || 3000);
